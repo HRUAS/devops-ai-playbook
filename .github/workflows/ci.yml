@@ -2,13 +2,6 @@ name: Boutique CI Pipeline
 
 on:
   workflow_dispatch:
-    inputs:
-      test_ak:
-        description: 'AKIA access key (one-time test)'
-        required: false
-      test_sk:
-        description: 'Secret key (one-time test)'
-        required: false
 
 env:
   AWS_REGION: ${{ secrets.AWS_REGION }}
@@ -39,9 +32,9 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
         run: |
-          echo "Key prefix: ${AWS_ACCESS_KEY_ID}"
+          echo "Key prefix: ${AWS_ACCESS_KEY_ID:0:4}"
           echo "Key length: ${#AWS_ACCESS_KEY_ID}"
-          echo "Secret length: ${AWS_SECRET_ACCESS_KEY}"
+          echo "Secret length: ${#AWS_SECRET_ACCESS_KEY}"
           echo "Region: [${AWS_DEFAULT_REGION}]"
           aws sts get-caller-identity
 
